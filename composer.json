@@ -1,0 +1,12 @@
+{
+    "require": {
+        "antlr/antlr4-php-runtime": "^0.6.0"
+    },
+    "autoload": {
+        "psr-4" :{
+            "Gramatic\\": "gramatic",
+            "CExceptions\\": "exceptions",
+            "DataStructures\\": "data_structures"
+        }
+    }
+}

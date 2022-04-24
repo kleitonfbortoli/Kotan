@@ -1,0 +1,2 @@
+# Kotan
+Kotan program language

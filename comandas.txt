@@ -1,0 +1,6 @@
+java -jar antlr-4.10.1-complete.jar -Dlanguage=PHP   -o gramatic/    -package Gramatic      Kotan.g
+                                      Linguiagem      dir arqu ger     namespace            arquivo gramatic
+
+
+
+php Kotan.php testeGramar.kot
