@@ -6,8 +6,7 @@
 
 namespace Gramatic {
 
-	require 'vendor/autoload.php';
-	echo 100;
+	require_once 'vendor/autoload.php';
 
 	use Antlr\Antlr4\Runtime\Atn\ATNDeserializer;
 	use Antlr\Antlr4\Runtime\Atn\LexerATNSimulator;

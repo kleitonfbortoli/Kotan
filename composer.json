@@ -6,7 +6,15 @@
         "psr-4" :{
             "Gramatic\\": "gramatic",
             "CExceptions\\": "exceptions",
-            "DataStructures\\": "data_structures"
+            "DataStructures\\": "data_structures",
+
+            "Interface\\": "interface",
+            "Abstract\\": "abstract",
+            "List\\": "list",
+            "Node\\": "node",
+            "Controller\\": "controller",
+            "Enum\\": "enum",
+            "Elemnt\\": "element"
         }
     }
 }

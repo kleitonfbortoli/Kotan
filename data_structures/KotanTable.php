@@ -1,10 +1,11 @@
 <?php
     namespace DataStructures;
 
+    use \Ds\Stack;
     class KotanTable {
         private $map = array();
 
-        public function add(AbstractKotanSymbol $Symbol) : void {
+        public function dd(AbstractKotanSymbol $Symbol) : void {
             $map[$Symbol->getName] = $Symbol;
         }
 
@@ -14,6 +15,7 @@
 
         public function get(string $SymbolName) : AbstractKotanSymbol {
             return self::$map[$SymbolName] ?? null;
+            new Stack();
         }
     }
 ?>

@@ -23,7 +23,7 @@ attr		: (T_Var | T_Const) T_Attr expr T_PVirg
 /* program end */
 
 /* native functions start */
-show 		: 'SHOW' T_OP expr T_CP T_PVirg { echo 1; }
+show 		: 'SHOW' T_OP expr T_CP T_PVirg
 			;
 /* native functions end */
 

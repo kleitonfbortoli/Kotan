@@ -6,8 +6,7 @@
 
 namespace Gramatic;
 
-	require 'vendor/autoload.php';
-	echo 100;
+	require_once 'vendor/autoload.php';
 
 use Antlr\Antlr4\Runtime\Tree\ParseTreeListener;
 

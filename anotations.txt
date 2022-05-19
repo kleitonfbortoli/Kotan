@@ -1,0 +1,5 @@
+falta fazer o controle das vars
+
+falta controlar a stack (melhor ver como programar em assembly antes, fica mais fácil de pensar)
+
+falta gerar o código
