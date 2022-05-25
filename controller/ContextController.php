@@ -1,26 +1,28 @@
 <?php
 namespace Controller;
 
+use Enum\EnumElements;
 use Interface\InterfaceElement;
 use LinkedListElements;
 use List\LinkedListElement;
 use List\ListElement;
+use Utils\UtilsElement;
 
 class ContextController {
     private static LinkedListElement $linkedList;
-    private static ListElement $elementsList;
     private static InterfaceElement $currentElement;
 
     // toda vez que começar um if ou coisa do tipo ele vai dar um start context
     // Consequentemente chegando no fim do if tbm
-    public static function startContext(string $elementName) {
+    public static function startContext(string $class) {
+        echo "startContext {$class}";
         if(!empty(self::$currentElement)) {
             self::$linkedList->add(self::$currentElement);
         }
 
-        $newElement = null; //Aqui tem que buscar o elemento do contexto
+        $context = UtilsElement::instanceElement($class); //Aqui tem que buscar o elemento do contexto
 
-        self::$currentElement = $newElement;
+        self::$currentElement = $context;
     }
 
     public static function endContext()
@@ -28,7 +30,7 @@ class ContextController {
         $next_element = self::$linkedList->getNext();
 
         if(empty($next_element)) {
-            //Aqui vai gerar a compilação do código
+            echo "Cheguei no compile";
         }
 
         $next_element->addChild(self::$currentElement);

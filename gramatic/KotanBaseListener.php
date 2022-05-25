@@ -8,6 +8,11 @@ namespace Gramatic;
 
 	require_once 'vendor/autoload.php';
 
+	use \Controller\ContextController;
+	use \Enum\EnumElements;
+
+	new ContextController();
+
 
 use Antlr\Antlr4\Runtime\ParserRuleContext;
 use Antlr\Antlr4\Runtime\Tree\ErrorNode;

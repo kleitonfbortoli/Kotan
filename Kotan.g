@@ -2,6 +2,11 @@ grammar Kotan;
 
 @header {
 	require_once 'vendor/autoload.php';
+
+	use \Controller\ContextController;
+	use \Enum\EnumElements;
+
+	new ContextController();
 }
 
 /*
@@ -11,7 +16,9 @@ grammar Kotan;
 */
 
 /* program start */
-prog		: 'PROGRAM START' prog_script 'PROGRAM END'
+prog		: 'PROGRAM START' {ContextController::startContext(EnumElements::Program);}
+			  prog_script
+			  'PROGRAM END' {ContextController::endContext();}
 			;
 
 prog_script	: (const_def)? (sgvars_def)? (cod_block)? //(funcs_def)? (classes_def)?

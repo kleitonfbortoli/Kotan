@@ -8,32 +8,32 @@ abstract class AbstractList implements InterfaceList {
 
     public function rewind()
     {
-        reset($this->var);
+        reset($this->list);
     }
 
     public function current()
     {
-        $var = current($this->var);
-        return $var;
+        $value = current($this->list);
+        return $value;
     }
 
     public function key()
     {
-        $var = key($this->var);
-        return $var;
+        $key = key($this->list);
+        return $key;
     }
 
     public function next()
     {
-        $var = next($this->var);
-        return $var;
+        $value = next($this->list);
+        return $value;
     }
 
     public function valid()
     {
-        $key = key($this->var);
-        $var = ($key !== NULL && $key !== FALSE);
-        return $var;
+        $key = key($this->list);
+        $valid = ($key !== NULL && $key !== FALSE);
+        return $valid;
     }
 }
 ?>

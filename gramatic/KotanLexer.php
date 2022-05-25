@@ -8,6 +8,11 @@ namespace Gramatic {
 
 	require_once 'vendor/autoload.php';
 
+	use \Controller\ContextController;
+	use \Enum\EnumElements;
+
+	new ContextController();
+
 	use Antlr\Antlr4\Runtime\Atn\ATNDeserializer;
 	use Antlr\Antlr4\Runtime\Atn\LexerATNSimulator;
 	use Antlr\Antlr4\Runtime\Lexer;

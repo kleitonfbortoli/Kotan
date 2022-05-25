@@ -4,17 +4,16 @@
     },
     "autoload": {
         "psr-4" :{
-            "Gramatic\\": "gramatic",
-            "CExceptions\\": "exceptions",
-            "DataStructures\\": "data_structures",
-
-            "Interface\\": "interface",
             "Abstract\\": "abstract",
-            "List\\": "list",
-            "Node\\": "node",
             "Controller\\": "controller",
+            "Element\\": "element",
             "Enum\\": "enum",
-            "Elemnt\\": "element"
+            "Gramatic\\": "gramatic",
+            "Interface\\": "interface",
+            "List\\": "list",
+            "Map\\": "map",
+            "Node\\": "node",
+            "Utils\\": "utils"
         }
     }
 }

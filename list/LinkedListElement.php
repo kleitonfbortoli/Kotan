@@ -1,19 +1,24 @@
 <?php
 namespace List;
 
+use Abstract\AbstractElement;
 use AbstractLinkedList;
-use Interface\InterfaceElement;
 use Node\NodeElement;
 
 class LinkedListElement extends AbstractLinkedList {
-    public function add(InterfaceElement $element) {
+    public function add(AbstractElement $element) {
         $newNode = new NodeElement();
         $newNode->setValue($element);
-        $newNode->setChild($this->node);
+
+        if(!empty($this->node))
+        {
+            $newNode->setChild($this->node);
+        }
+
         $this->node = $newNode;
     }
 
-    public function getNext() : InterfaceElement {
+    public function getNext() : AbstractElement {
         if(empty($this->node)) {
             return null;
         }

@@ -2,13 +2,22 @@
 namespace Abstract;
 
 use Interface\InterfaceElement;
-use List\ListElement;
+use Interface\InterfaceProperties;
 
 abstract class AbstractElement implements InterfaceElement{
-    private $childrens;
+    private AbstractList $childrens;
+    private AbstractMap $properties;
 
-    protected function instanceChildrenList(ListElement $list) {
+    protected function instanceChildrenList(AbstractList $list) {
         $this->childrens = $list;
+    }
+
+    protected function instancePropertiesMap(AbstractMap $map) {
+        $this->properties = $map;
+    }
+
+    public function addProp(string $name, InterfaceProperties $propertie) {
+        $this->properties->add($name, $propertie);
     }
 
     public function addChild(InterfaceElement $child) {
@@ -19,7 +28,7 @@ abstract class AbstractElement implements InterfaceElement{
         $this->childrens->pop();
     }
 
-    public function compileChildrenCode() : string {
+    public function compileChildrensCode() : string {
         $compiledCod = "";
 
         if(!empty($childrens)) {
