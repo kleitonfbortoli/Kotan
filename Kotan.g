@@ -4,7 +4,6 @@ grammar Kotan;
 	require_once 'vendor/autoload.php';
 
 	use \Controller\ContextController;
-	use \Enum\EnumElements;
 
 	new ContextController();
 }
@@ -16,39 +15,48 @@ grammar Kotan;
 */
 
 /* program start */
-prog		: 'PROGRAM START' {ContextController::startContext(EnumElements::Program);}
-			  prog_script
-			  'PROGRAM END' {ContextController::endContext();}
+prog		:	'PROGRAM START' {ContextController::startContext("Program");}
+				prog_script
+				'PROGRAM END' {ContextController::endContext();}
 			;
 
-prog_script	: (const_def)? (sgvars_def)? (cod_block)? //(funcs_def)? (classes_def)?
+prog_script	: vars_def cod_block //(funcs_def)? (classes_def)?
 			;
-cod_block	: 'COD START' (show | attr) 'COD END'
+cod_block	:	'COD START'
+				cod_script +
+				'COD END'
 			;
+
+cod_script	: show | attr
+			;
+
 attr		: (T_Var | T_Const) T_Attr expr T_PVirg
 			;
 /* program end */
 
 /* native functions start */
-show 		: 'SHOW' T_OP expr T_CP T_PVirg
+show 		:	'SHOW' {ContextController::startContext("Show");}
+				T_OP
+					text_value
+				T_CP
+				T_PVirg {ContextController::endContext();}
 			;
-/* native functions end */
 
-/* Constants cod start */
-const_def	: 'CONSTS VARS START' (const_attr)+ 'CONSTS VARS END'
+text_show  : 	{ContextController::startPropertieContext("STRING_VALUE");}
+				text_value
+				{ContextController::endPropertieContext();}
 			;
-const_attr	: T_Const T_Attr expr T_PVirg
+
+text_value	:	{ContextController::startContext("String");}
+				T_Num
+				{ContextController::endContext("Show");}
 			;
-/* Constants cod end */
 
 /* vars cod start */
-sgvars_def	: 'SGLOBAL VARS START' (value_attr)+ 'SGLOBAL VARS END'
-			;
-gvars_def	: 'GLOBAL VARS START' (value_attr)+ 'GLOBAL VARS END'
-			;
 vars_def	: 'VARS START' (value_attr)+ 'VARS END'
 			;
-value_attr	: T_Var T_Attr expr T_PVirg
+
+value_attr	: T_Var T_Type T_Attr expr T_PVirg
 			;
 /* vars cod end */
 
@@ -57,12 +65,19 @@ expr		: termo ((T_Soma | T_Sub) termo)*
 			;
 termo		: fator ((T_Mult | T_Div) fator)*
 			;
-fator		: T_Var | T_Const | T_Num | T_Text | T_OP expr T_CP
+fator		: T_Var | T_Const | T_Num | (T_OP expr T_CP)
 			;
 /* expressions end */
 
 
 T_Var	: ('a'..'z' | 'A'..'Z') ('a'..'z' | 'A'..'Z' | '0'..'9')*
+		;
+
+T_Type 	: 	'INT' {}
+			| 'STRING' {}
+			| 'CHAR' {}
+			// | 'FLOAT' {}
+			// | 'DOUBLE' {}
 		;
 
 T_PVirg	: ';'
@@ -77,25 +92,25 @@ T_OP	: '('
 T_CP	: ')'
 		;
 
-T_Soma	: '+'
+T_Soma	: '+' {}
 		;
 
-T_Sub	: '-'
+T_Sub	: '-' {}
 		;
 
-T_Mult	: '*'
+T_Mult	: '*' {}
 		;
 
-T_Div	: '/'
+T_Div	: '/' {}
 		;
 
-T_Num	: ('0'..'9')+
+T_Num	: ('0'..'9')+ {}
 		;
 
-T_Const	: ('A'..'Z')+
+T_Const	: ('A'..'Z')+ {}
 		;
 
-T_Text	: '"' ('a'..'z' | 'A'..'Z' | '0'..'9' | ' ') '"'
+T_Text	: ('a'..'z' | 'A'..'Z' | '0'..'9' | ' ')+
 		;
 
 T_Blank	: (' ' | '\n' | '\r' | '\t') -> skip

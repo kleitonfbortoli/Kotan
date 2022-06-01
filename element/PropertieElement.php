@@ -6,11 +6,12 @@ use Basic\Element;
 use Interface\InterfaceElement;
 use Trait\Element\Childreens;
 
-class ProgranElement extends Element implements InterfaceElement {
+class PropertieElement extends Element implements InterfaceElement {
     use Childreens;
 
     public function compile(): void
     {
-        $this->compileChilds();
+
     }
+
 }

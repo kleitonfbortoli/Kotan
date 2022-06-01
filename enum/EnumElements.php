@@ -1,8 +1,9 @@
 <?php
 namespace Enum;
 
-use Element\ProgranElement;
-
 class EnumElements {
-    const Program = ProgranElement::class;
+    const Program = \Element\ProgranElement::class;
+    const Show = \Element\ShowElement::class;
+    const Propertie = \Element\PropertieElement::class;
+    const String = \Element\StringElement::class;
 }

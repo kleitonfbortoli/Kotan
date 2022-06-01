@@ -9,7 +9,6 @@ namespace Gramatic;
 	require_once 'vendor/autoload.php';
 
 	use \Controller\ContextController;
-	use \Enum\EnumElements;
 
 	new ContextController();
 
@@ -69,6 +68,19 @@ class KotanBaseListener implements KotanListener
 	 *
 	 * The default implementation does nothing.
 	 */
+	public function enterCod_script(Context\Cod_scriptContext $context): void {}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function exitCod_script(Context\Cod_scriptContext $context): void {}
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
 	public function enterAttr(Context\AttrContext $context): void {}
 
 	/**
@@ -95,53 +107,27 @@ class KotanBaseListener implements KotanListener
 	 *
 	 * The default implementation does nothing.
 	 */
-	public function enterConst_def(Context\Const_defContext $context): void {}
+	public function enterText_show(Context\Text_showContext $context): void {}
 
 	/**
 	 * {@inheritdoc}
 	 *
 	 * The default implementation does nothing.
 	 */
-	public function exitConst_def(Context\Const_defContext $context): void {}
+	public function exitText_show(Context\Text_showContext $context): void {}
 	/**
 	 * {@inheritdoc}
 	 *
 	 * The default implementation does nothing.
 	 */
-	public function enterConst_attr(Context\Const_attrContext $context): void {}
+	public function enterText_value(Context\Text_valueContext $context): void {}
 
 	/**
 	 * {@inheritdoc}
 	 *
 	 * The default implementation does nothing.
 	 */
-	public function exitConst_attr(Context\Const_attrContext $context): void {}
-	/**
-	 * {@inheritdoc}
-	 *
-	 * The default implementation does nothing.
-	 */
-	public function enterSgvars_def(Context\Sgvars_defContext $context): void {}
-
-	/**
-	 * {@inheritdoc}
-	 *
-	 * The default implementation does nothing.
-	 */
-	public function exitSgvars_def(Context\Sgvars_defContext $context): void {}
-	/**
-	 * {@inheritdoc}
-	 *
-	 * The default implementation does nothing.
-	 */
-	public function enterGvars_def(Context\Gvars_defContext $context): void {}
-
-	/**
-	 * {@inheritdoc}
-	 *
-	 * The default implementation does nothing.
-	 */
-	public function exitGvars_def(Context\Gvars_defContext $context): void {}
+	public function exitText_value(Context\Text_valueContext $context): void {}
 	/**
 	 * {@inheritdoc}
 	 *

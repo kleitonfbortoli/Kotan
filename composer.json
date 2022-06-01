@@ -4,15 +4,15 @@
     },
     "autoload": {
         "psr-4" :{
-            "Abstract\\": "abstract",
+            "Assembly\\": "assembly",
+            "Basic\\": "basic",
             "Controller\\": "controller",
             "Element\\": "element",
             "Enum\\": "enum",
             "Gramatic\\": "gramatic",
             "Interface\\": "interface",
-            "List\\": "list",
-            "Map\\": "map",
-            "Node\\": "node",
+            "Lib\\": "lib",
+            "Trait\\": "trait",
             "Utils\\": "utils"
         }
     }

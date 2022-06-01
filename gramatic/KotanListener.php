@@ -9,7 +9,6 @@ namespace Gramatic;
 	require_once 'vendor/autoload.php';
 
 	use \Controller\ContextController;
-	use \Enum\EnumElements;
 
 	new ContextController();
 
@@ -51,6 +50,16 @@ interface KotanListener extends ParseTreeListener {
 	 */
 	public function exitCod_block(Context\Cod_blockContext $context): void;
 	/**
+	 * Enter a parse tree produced by {@see KotanParser::cod_script()}.
+	 * @param $context The parse tree.
+	 */
+	public function enterCod_script(Context\Cod_scriptContext $context): void;
+	/**
+	 * Exit a parse tree produced by {@see KotanParser::cod_script()}.
+	 * @param $context The parse tree.
+	 */
+	public function exitCod_script(Context\Cod_scriptContext $context): void;
+	/**
 	 * Enter a parse tree produced by {@see KotanParser::attr()}.
 	 * @param $context The parse tree.
 	 */
@@ -71,45 +80,25 @@ interface KotanListener extends ParseTreeListener {
 	 */
 	public function exitShow(Context\ShowContext $context): void;
 	/**
-	 * Enter a parse tree produced by {@see KotanParser::const_def()}.
+	 * Enter a parse tree produced by {@see KotanParser::text_show()}.
 	 * @param $context The parse tree.
 	 */
-	public function enterConst_def(Context\Const_defContext $context): void;
+	public function enterText_show(Context\Text_showContext $context): void;
 	/**
-	 * Exit a parse tree produced by {@see KotanParser::const_def()}.
+	 * Exit a parse tree produced by {@see KotanParser::text_show()}.
 	 * @param $context The parse tree.
 	 */
-	public function exitConst_def(Context\Const_defContext $context): void;
+	public function exitText_show(Context\Text_showContext $context): void;
 	/**
-	 * Enter a parse tree produced by {@see KotanParser::const_attr()}.
+	 * Enter a parse tree produced by {@see KotanParser::text_value()}.
 	 * @param $context The parse tree.
 	 */
-	public function enterConst_attr(Context\Const_attrContext $context): void;
+	public function enterText_value(Context\Text_valueContext $context): void;
 	/**
-	 * Exit a parse tree produced by {@see KotanParser::const_attr()}.
+	 * Exit a parse tree produced by {@see KotanParser::text_value()}.
 	 * @param $context The parse tree.
 	 */
-	public function exitConst_attr(Context\Const_attrContext $context): void;
-	/**
-	 * Enter a parse tree produced by {@see KotanParser::sgvars_def()}.
-	 * @param $context The parse tree.
-	 */
-	public function enterSgvars_def(Context\Sgvars_defContext $context): void;
-	/**
-	 * Exit a parse tree produced by {@see KotanParser::sgvars_def()}.
-	 * @param $context The parse tree.
-	 */
-	public function exitSgvars_def(Context\Sgvars_defContext $context): void;
-	/**
-	 * Enter a parse tree produced by {@see KotanParser::gvars_def()}.
-	 * @param $context The parse tree.
-	 */
-	public function enterGvars_def(Context\Gvars_defContext $context): void;
-	/**
-	 * Exit a parse tree produced by {@see KotanParser::gvars_def()}.
-	 * @param $context The parse tree.
-	 */
-	public function exitGvars_def(Context\Gvars_defContext $context): void;
+	public function exitText_value(Context\Text_valueContext $context): void;
 	/**
 	 * Enter a parse tree produced by {@see KotanParser::vars_def()}.
 	 * @param $context The parse tree.

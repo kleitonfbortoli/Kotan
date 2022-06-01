@@ -1,13 +1,19 @@
 <?php
-namespace List;
+namespace Lib\Stack;
 
-use Abstract\AbstractElement;
-use AbstractLinkedList;
-use Node\NodeElement;
+use Lib\Interface\Stack\InterfaceStack;
+use Lib\Node\Node;
 
-class LinkedListElement extends AbstractLinkedList {
-    public function add(AbstractElement $element) {
-        $newNode = new NodeElement();
+class Stack implements InterfaceStack {
+    protected ?Node $node;
+
+    public function __construct()
+    {
+        $this->node = new Node();
+    }
+
+    public function add(mixed $element) {
+        $newNode = new Node();
         $newNode->setValue($element);
 
         if(!empty($this->node))
@@ -18,7 +24,7 @@ class LinkedListElement extends AbstractLinkedList {
         $this->node = $newNode;
     }
 
-    public function getNext() : AbstractElement {
+    public function get() : mixed {
         if(empty($this->node)) {
             return null;
         }
