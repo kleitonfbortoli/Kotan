@@ -1,6 +1,7 @@
 <?php
 namespace Element;
 
+use Assembly\LoadFunction;
 use Basic\Element;
 use Controller\CompilerController;
 use Controller\CompilerMemoryVarsController;
@@ -22,11 +23,13 @@ class ShowElement extends Element implements InterfaceElement {
 
         }
 
-        CompilerController::addCode("#SHOW element");
         $cod = $this->getCodByType($var->getType());
-        CompilerController::addCode('li $v0, ' + $cod);
-        CompilerController::addCode('la $a0, ' + $var->getName());
+        $loaFunc = LoadFunction::getMoveFunction($var);
+        CompilerController::addComment("SHOW element");
+        CompilerController::addCode('li $v0, ' . $cod);
+        CompilerController::addCode($loaFunc.' $a0, ' . $var->getName());
         CompilerController::addCode('syscall');
+        CompilerController::addEmptyLine();
 
     }
 
@@ -36,12 +39,13 @@ class ShowElement extends Element implements InterfaceElement {
             case '.asciiz':
                 $value = 4;
                 break;
-
+            case '.word':
+                $value = 1;
+                break;
             default:
-                throw new Exception("Não é possível imprimir esse elemento", -1);
+                throw new Exception("Não é possível imprimir um elemento do tipo {$type}", -1);
                 break;
         }
         return $value;
     }
-
 }

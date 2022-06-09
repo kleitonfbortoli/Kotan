@@ -6,11 +6,11 @@
 
 namespace Gramatic {
 
-	require_once 'vendor/autoload.php';
+require_once 'vendor/autoload.php';
+use Parser\KotanCustonParser;
+use \Controller\ContextController;
 
-	use \Controller\ContextController;
-
-	new ContextController();
+new ContextController();
 
 	use Antlr\Antlr4\Runtime\Atn\ATN;
 	use Antlr\Antlr4\Runtime\Atn\ATNDeserializer;
@@ -28,7 +28,7 @@ namespace Gramatic {
 	use Antlr\Antlr4\Runtime\RuntimeMetaData;
 	use Antlr\Antlr4\Runtime\Parser;
 
-	final class KotanParser extends Parser
+	final class KotanParser extends KotanCustonParser
 	{
 		public const T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, 
                T__6 = 7, T_Var = 8, T_Type = 9, T_PVirg = 10, T_Attr = 11, 
@@ -36,16 +36,16 @@ namespace Gramatic {
                T_Div = 17, T_Num = 18, T_Const = 19, T_Text = 20, T_Blank = 21;
 
 		public const RULE_prog = 0, RULE_prog_script = 1, RULE_cod_block = 2, 
-               RULE_cod_script = 3, RULE_attr = 4, RULE_show = 5, RULE_text_show = 6, 
-               RULE_text_value = 7, RULE_vars_def = 8, RULE_value_attr = 9, 
+               RULE_cod_script = 3, RULE_attr = 4, RULE_show = 5, RULE_text_value = 6, 
+               RULE_numValue = 7, RULE_vars_def = 8, RULE_value_attr = 9, 
                RULE_expr = 10, RULE_termo = 11, RULE_fator = 12;
 
 		/**
 		 * @var array<string>
 		 */
 		public const RULE_NAMES = [
-			'prog', 'prog_script', 'cod_block', 'cod_script', 'attr', 'show', 'text_show', 
-			'text_value', 'vars_def', 'value_attr', 'expr', 'termo', 'fator'
+			'prog', 'prog_script', 'cod_block', 'cod_script', 'attr', 'show', 'text_value', 
+			'numValue', 'vars_def', 'value_attr', 'expr', 'termo', 'fator'
 		];
 
 		/**
@@ -67,51 +67,62 @@ namespace Gramatic {
 		];
 
 		private const SERIALIZED_ATN =
-			[4, 1, 21, 108, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 
+			[4, 1, 21, 133, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 
 		    7, 4, 2, 5, 7, 5, 2, 6, 7, 6, 2, 7, 7, 7, 2, 8, 7, 8, 2, 9, 7, 9, 
 		    2, 10, 7, 10, 2, 11, 7, 11, 2, 12, 7, 12, 1, 0, 1, 0, 1, 0, 1, 0, 
 		    1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 4, 2, 38, 8, 2, 11, 2, 12, 
 		    2, 39, 1, 2, 1, 2, 1, 3, 1, 3, 3, 3, 46, 8, 3, 1, 4, 1, 4, 1, 4, 1, 
-		    4, 1, 4, 1, 5, 1, 5, 1, 5, 1, 5, 1, 5, 1, 5, 1, 5, 1, 5, 1, 6, 1, 
-		    6, 1, 6, 1, 6, 1, 7, 1, 7, 1, 7, 1, 7, 1, 8, 1, 8, 4, 8, 71, 8, 8, 
-		    11, 8, 12, 8, 72, 1, 8, 1, 8, 1, 9, 1, 9, 1, 9, 1, 9, 1, 9, 1, 9, 
-		    1, 10, 1, 10, 1, 10, 5, 10, 86, 8, 10, 10, 10, 12, 10, 89, 9, 10, 
-		    1, 11, 1, 11, 1, 11, 5, 11, 94, 8, 11, 10, 11, 12, 11, 97, 9, 11, 
-		    1, 12, 1, 12, 1, 12, 1, 12, 1, 12, 1, 12, 1, 12, 3, 12, 106, 8, 12, 
-		    1, 12, 0, 0, 13, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 0, 
-		    3, 2, 0, 8, 8, 19, 19, 1, 0, 14, 15, 1, 0, 16, 17, 102, 0, 26, 1, 
-		    0, 0, 0, 2, 32, 1, 0, 0, 0, 4, 35, 1, 0, 0, 0, 6, 45, 1, 0, 0, 0, 
-		    8, 47, 1, 0, 0, 0, 10, 52, 1, 0, 0, 0, 12, 60, 1, 0, 0, 0, 14, 64, 
-		    1, 0, 0, 0, 16, 68, 1, 0, 0, 0, 18, 76, 1, 0, 0, 0, 20, 82, 1, 0, 
-		    0, 0, 22, 90, 1, 0, 0, 0, 24, 105, 1, 0, 0, 0, 26, 27, 5, 1, 0, 0, 
-		    27, 28, 6, 0, -1, 0, 28, 29, 3, 2, 1, 0, 29, 30, 5, 2, 0, 0, 30, 31, 
-		    6, 0, -1, 0, 31, 1, 1, 0, 0, 0, 32, 33, 3, 16, 8, 0, 33, 34, 3, 4, 
-		    2, 0, 34, 3, 1, 0, 0, 0, 35, 37, 5, 3, 0, 0, 36, 38, 3, 6, 3, 0, 37, 
-		    36, 1, 0, 0, 0, 38, 39, 1, 0, 0, 0, 39, 37, 1, 0, 0, 0, 39, 40, 1, 
-		    0, 0, 0, 40, 41, 1, 0, 0, 0, 41, 42, 5, 4, 0, 0, 42, 5, 1, 0, 0, 0, 
-		    43, 46, 3, 10, 5, 0, 44, 46, 3, 8, 4, 0, 45, 43, 1, 0, 0, 0, 45, 44, 
-		    1, 0, 0, 0, 46, 7, 1, 0, 0, 0, 47, 48, 7, 0, 0, 0, 48, 49, 5, 11, 
-		    0, 0, 49, 50, 3, 20, 10, 0, 50, 51, 5, 10, 0, 0, 51, 9, 1, 0, 0, 0, 
-		    52, 53, 5, 5, 0, 0, 53, 54, 6, 5, -1, 0, 54, 55, 5, 12, 0, 0, 55, 
-		    56, 3, 12, 6, 0, 56, 57, 5, 13, 0, 0, 57, 58, 5, 10, 0, 0, 58, 59, 
-		    6, 5, -1, 0, 59, 11, 1, 0, 0, 0, 60, 61, 6, 6, -1, 0, 61, 62, 3, 14, 
-		    7, 0, 62, 63, 6, 6, -1, 0, 63, 13, 1, 0, 0, 0, 64, 65, 6, 7, -1, 0, 
-		    65, 66, 5, 18, 0, 0, 66, 67, 6, 7, -1, 0, 67, 15, 1, 0, 0, 0, 68, 
-		    70, 5, 6, 0, 0, 69, 71, 3, 18, 9, 0, 70, 69, 1, 0, 0, 0, 71, 72, 1, 
-		    0, 0, 0, 72, 70, 1, 0, 0, 0, 72, 73, 1, 0, 0, 0, 73, 74, 1, 0, 0, 
-		    0, 74, 75, 5, 7, 0, 0, 75, 17, 1, 0, 0, 0, 76, 77, 5, 8, 0, 0, 77, 
-		    78, 5, 9, 0, 0, 78, 79, 5, 11, 0, 0, 79, 80, 3, 20, 10, 0, 80, 81, 
-		    5, 10, 0, 0, 81, 19, 1, 0, 0, 0, 82, 87, 3, 22, 11, 0, 83, 84, 7, 
-		    1, 0, 0, 84, 86, 3, 22, 11, 0, 85, 83, 1, 0, 0, 0, 86, 89, 1, 0, 0, 
-		    0, 87, 85, 1, 0, 0, 0, 87, 88, 1, 0, 0, 0, 88, 21, 1, 0, 0, 0, 89, 
-		    87, 1, 0, 0, 0, 90, 95, 3, 24, 12, 0, 91, 92, 7, 2, 0, 0, 92, 94, 
-		    3, 24, 12, 0, 93, 91, 1, 0, 0, 0, 94, 97, 1, 0, 0, 0, 95, 93, 1, 0, 
-		    0, 0, 95, 96, 1, 0, 0, 0, 96, 23, 1, 0, 0, 0, 97, 95, 1, 0, 0, 0, 
-		    98, 106, 5, 8, 0, 0, 99, 106, 5, 19, 0, 0, 100, 106, 5, 18, 0, 0, 
-		    101, 102, 5, 12, 0, 0, 102, 103, 3, 20, 10, 0, 103, 104, 5, 13, 0, 
-		    0, 104, 106, 1, 0, 0, 0, 105, 98, 1, 0, 0, 0, 105, 99, 1, 0, 0, 0, 
-		    105, 100, 1, 0, 0, 0, 105, 101, 1, 0, 0, 0, 106, 25, 1, 0, 0, 0, 6, 
-		    39, 45, 72, 87, 95, 105];
+		    4, 3, 4, 52, 8, 4, 1, 4, 1, 4, 1, 4, 1, 4, 1, 4, 1, 4, 1, 5, 1, 5, 
+		    1, 5, 1, 5, 1, 5, 3, 5, 65, 8, 5, 1, 5, 1, 5, 1, 5, 1, 5, 1, 5, 1, 
+		    6, 1, 6, 1, 6, 1, 6, 1, 6, 1, 6, 1, 6, 1, 7, 1, 7, 1, 7, 1, 7, 1, 
+		    7, 1, 7, 1, 7, 1, 8, 1, 8, 4, 8, 88, 8, 8, 11, 8, 12, 8, 89, 1, 8, 
+		    1, 8, 1, 9, 1, 9, 1, 9, 1, 9, 1, 9, 1, 9, 1, 10, 1, 10, 1, 10, 1, 
+		    10, 5, 10, 104, 8, 10, 10, 10, 12, 10, 107, 9, 10, 1, 10, 1, 10, 1, 
+		    11, 1, 11, 1, 11, 5, 11, 114, 8, 11, 10, 11, 12, 11, 117, 9, 11, 1, 
+		    12, 1, 12, 1, 12, 1, 12, 1, 12, 1, 12, 1, 12, 1, 12, 1, 12, 1, 12, 
+		    1, 12, 1, 12, 3, 12, 131, 8, 12, 1, 12, 0, 0, 13, 0, 2, 4, 6, 8, 10, 
+		    12, 14, 16, 18, 20, 22, 24, 0, 2, 1, 0, 14, 15, 1, 0, 16, 17, 129, 
+		    0, 26, 1, 0, 0, 0, 2, 32, 1, 0, 0, 0, 4, 35, 1, 0, 0, 0, 6, 45, 1, 
+		    0, 0, 0, 8, 51, 1, 0, 0, 0, 10, 59, 1, 0, 0, 0, 12, 71, 1, 0, 0, 0, 
+		    14, 78, 1, 0, 0, 0, 16, 85, 1, 0, 0, 0, 18, 93, 1, 0, 0, 0, 20, 99, 
+		    1, 0, 0, 0, 22, 110, 1, 0, 0, 0, 24, 130, 1, 0, 0, 0, 26, 27, 5, 1, 
+		    0, 0, 27, 28, 6, 0, -1, 0, 28, 29, 3, 2, 1, 0, 29, 30, 6, 0, -1, 0, 
+		    30, 31, 5, 2, 0, 0, 31, 1, 1, 0, 0, 0, 32, 33, 3, 16, 8, 0, 33, 34, 
+		    3, 4, 2, 0, 34, 3, 1, 0, 0, 0, 35, 37, 5, 3, 0, 0, 36, 38, 3, 6, 3, 
+		    0, 37, 36, 1, 0, 0, 0, 38, 39, 1, 0, 0, 0, 39, 37, 1, 0, 0, 0, 39, 
+		    40, 1, 0, 0, 0, 40, 41, 1, 0, 0, 0, 41, 42, 5, 4, 0, 0, 42, 5, 1, 
+		    0, 0, 0, 43, 46, 3, 10, 5, 0, 44, 46, 3, 8, 4, 0, 45, 43, 1, 0, 0, 
+		    0, 45, 44, 1, 0, 0, 0, 46, 7, 1, 0, 0, 0, 47, 48, 5, 8, 0, 0, 48, 
+		    52, 6, 4, -1, 0, 49, 50, 5, 19, 0, 0, 50, 52, 6, 4, -1, 0, 51, 47, 
+		    1, 0, 0, 0, 51, 49, 1, 0, 0, 0, 52, 53, 1, 0, 0, 0, 53, 54, 5, 11, 
+		    0, 0, 54, 55, 6, 4, -1, 0, 55, 56, 3, 20, 10, 0, 56, 57, 6, 4, -1, 
+		    0, 57, 58, 5, 10, 0, 0, 58, 9, 1, 0, 0, 0, 59, 60, 5, 5, 0, 0, 60, 
+		    61, 5, 12, 0, 0, 61, 64, 6, 5, -1, 0, 62, 65, 5, 14, 0, 0, 63, 65, 
+		    3, 14, 7, 0, 64, 62, 1, 0, 0, 0, 64, 63, 1, 0, 0, 0, 65, 66, 1, 0, 
+		    0, 0, 66, 67, 6, 5, -1, 0, 67, 68, 5, 13, 0, 0, 68, 69, 1, 0, 0, 0, 
+		    69, 70, 5, 10, 0, 0, 70, 11, 1, 0, 0, 0, 71, 72, 5, 18, 0, 0, 72, 
+		    73, 6, 6, -1, 0, 73, 74, 6, 6, -1, 0, 74, 75, 6, 6, -1, 0, 75, 76, 
+		    6, 6, -1, 0, 76, 77, 6, 6, -1, 0, 77, 13, 1, 0, 0, 0, 78, 79, 5, 18, 
+		    0, 0, 79, 80, 6, 7, -1, 0, 80, 81, 6, 7, -1, 0, 81, 82, 6, 7, -1, 
+		    0, 82, 83, 6, 7, -1, 0, 83, 84, 6, 7, -1, 0, 84, 15, 1, 0, 0, 0, 85, 
+		    87, 5, 6, 0, 0, 86, 88, 3, 18, 9, 0, 87, 86, 1, 0, 0, 0, 88, 89, 1, 
+		    0, 0, 0, 89, 87, 1, 0, 0, 0, 89, 90, 1, 0, 0, 0, 90, 91, 1, 0, 0, 
+		    0, 91, 92, 5, 7, 0, 0, 92, 17, 1, 0, 0, 0, 93, 94, 5, 8, 0, 0, 94, 
+		    95, 5, 9, 0, 0, 95, 96, 5, 11, 0, 0, 96, 97, 3, 20, 10, 0, 97, 98, 
+		    5, 10, 0, 0, 98, 19, 1, 0, 0, 0, 99, 100, 6, 10, -1, 0, 100, 105, 
+		    3, 22, 11, 0, 101, 102, 7, 0, 0, 0, 102, 104, 3, 22, 11, 0, 103, 101, 
+		    1, 0, 0, 0, 104, 107, 1, 0, 0, 0, 105, 103, 1, 0, 0, 0, 105, 106, 
+		    1, 0, 0, 0, 106, 108, 1, 0, 0, 0, 107, 105, 1, 0, 0, 0, 108, 109, 
+		    6, 10, -1, 0, 109, 21, 1, 0, 0, 0, 110, 115, 3, 24, 12, 0, 111, 112, 
+		    7, 1, 0, 0, 112, 114, 3, 24, 12, 0, 113, 111, 1, 0, 0, 0, 114, 117, 
+		    1, 0, 0, 0, 115, 113, 1, 0, 0, 0, 115, 116, 1, 0, 0, 0, 116, 23, 1, 
+		    0, 0, 0, 117, 115, 1, 0, 0, 0, 118, 119, 5, 8, 0, 0, 119, 131, 6, 
+		    12, -1, 0, 120, 121, 5, 19, 0, 0, 121, 131, 6, 12, -1, 0, 122, 123, 
+		    5, 18, 0, 0, 123, 124, 6, 12, -1, 0, 124, 125, 6, 12, -1, 0, 125, 
+		    131, 6, 12, -1, 0, 126, 127, 5, 12, 0, 0, 127, 128, 3, 20, 10, 0, 
+		    128, 129, 5, 13, 0, 0, 129, 131, 1, 0, 0, 0, 130, 118, 1, 0, 0, 0, 
+		    130, 120, 1, 0, 0, 0, 130, 122, 1, 0, 0, 0, 130, 126, 1, 0, 0, 0, 
+		    131, 25, 1, 0, 0, 0, 8, 39, 45, 51, 64, 89, 105, 115, 130];
 		protected static $atn;
 		protected static $decisionToDFA;
 		protected static $sharedContextCache;
@@ -188,9 +199,9 @@ namespace Gramatic {
 		        ContextController::startContext("Program");
 		        $this->setState(28);
 		        $this->prog_script();
-		        $this->setState(29);
-		        $this->match(self::T__1);
 		        ContextController::endContext();
+		        $this->setState(30);
+		        $this->match(self::T__1);
 		    } catch (RecognitionException $exception) {
 		        $localContext->exception = $exception;
 		        $this->errorHandler->reportError($this, $exception);
@@ -317,25 +328,32 @@ namespace Gramatic {
 
 		    try {
 		        $this->enterOuterAlt($localContext, 1);
-		        $this->setState(47);
+		        $this->setState(51);
+		        $this->errorHandler->sync($this);
 
-		        $_la = $this->input->LA(1);
+		        switch ($this->input->LA(1)) {
+		            case self::T_Var:
+		            	$this->setState(47);
+		            	$this->match(self::T_Var);
+		            	$context_attr = "Var";
+		            	break;
 
-		        if (!($_la === self::T_Var || $_la === self::T_Const)) {
-		        $this->errorHandler->recoverInline($this);
-		        } else {
-		        	if ($this->input->LA(1) === Token::EOF) {
-		        	    $this->matchedEOF = true;
-		            }
+		            case self::T_Const:
+		            	$this->setState(49);
+		            	$this->match(self::T_Const);
+		            	$context_attr = "Const";
+		            	break;
 
-		        	$this->errorHandler->reportMatch($this);
-		        	$this->consume();
+		        default:
+		        	throw new NoViableAltException($this);
 		        }
-		        $this->setState(48);
+		        $this->setState(53);
 		        $this->match(self::T_Attr);
-		        $this->setState(49);
+		        ContextController::startContext($context_attr);
+		        $this->setState(55);
 		        $this->expr();
-		        $this->setState(50);
+		        ContextController::endContext();
+		        $this->setState(57);
 		        $this->match(self::T_PVirg);
 		    } catch (RecognitionException $exception) {
 		        $localContext->exception = $exception;
@@ -359,44 +377,34 @@ namespace Gramatic {
 
 		    try {
 		        $this->enterOuterAlt($localContext, 1);
-		        $this->setState(52);
+		        $this->setState(59);
 		        $this->match(self::T__4);
-		        ContextController::startContext("Show");
-		        $this->setState(54);
+
+		        $this->setState(60);
 		        $this->match(self::T_OP);
-		        $this->setState(55);
-		        $this->text_show();
-		        $this->setState(56);
-		        $this->match(self::T_CP);
-		        $this->setState(57);
-		        $this->match(self::T_PVirg);
+		        ContextController::startContext("Show");
+		        $this->setState(64);
+		        $this->errorHandler->sync($this);
+
+		        switch ($this->input->LA(1)) {
+		            case self::T_Soma:
+		            	$this->setState(62);
+		            	$this->match(self::T_Soma);
+		            	break;
+
+		            case self::T_Num:
+		            	$this->setState(63);
+		            	$this->numValue();
+		            	break;
+
+		        default:
+		        	throw new NoViableAltException($this);
+		        }
 		        ContextController::endContext();
-		    } catch (RecognitionException $exception) {
-		        $localContext->exception = $exception;
-		        $this->errorHandler->reportError($this, $exception);
-		        $this->errorHandler->recover($this, $exception);
-		    } finally {
-		        $this->exitRule();
-		    }
-
-		    return $localContext;
-		}
-
-		/**
-		 * @throws RecognitionException
-		 */
-		public function text_show(): Context\Text_showContext
-		{
-		    $localContext = new Context\Text_showContext($this->ctx, $this->getState());
-
-		    $this->enterRule($localContext, 12, self::RULE_text_show);
-
-		    try {
-		        $this->enterOuterAlt($localContext, 1);
-		        ContextController::startPropertieContext("STRING_VALUE");
-		        $this->setState(61);
-		        $this->text_value();
-		        ContextController::endPropertieContext();
+		        $this->setState(67);
+		        $this->match(self::T_CP);
+		        $this->setState(69);
+		        $this->match(self::T_PVirg);
 		    } catch (RecognitionException $exception) {
 		        $localContext->exception = $exception;
 		        $this->errorHandler->reportError($this, $exception);
@@ -415,14 +423,46 @@ namespace Gramatic {
 		{
 		    $localContext = new Context\Text_valueContext($this->ctx, $this->getState());
 
-		    $this->enterRule($localContext, 14, self::RULE_text_value);
+		    $this->enterRule($localContext, 12, self::RULE_text_value);
 
 		    try {
 		        $this->enterOuterAlt($localContext, 1);
-		        ContextController::startContext("String");
-		        $this->setState(65);
+		        $this->setState(71);
 		        $this->match(self::T_Num);
-		        ContextController::endContext("Show");
+		        ContextController::startPropertieContext("STRING_VALUE");
+		        ContextController::startContext("String");
+		        ContextController::setValue($localContext->getText());
+		        ContextController::endContext();
+		        ContextController::endPropertieContext();
+		    } catch (RecognitionException $exception) {
+		        $localContext->exception = $exception;
+		        $this->errorHandler->reportError($this, $exception);
+		        $this->errorHandler->recover($this, $exception);
+		    } finally {
+		        $this->exitRule();
+		    }
+
+		    return $localContext;
+		}
+
+		/**
+		 * @throws RecognitionException
+		 */
+		public function numValue(): Context\NumValueContext
+		{
+		    $localContext = new Context\NumValueContext($this->ctx, $this->getState());
+
+		    $this->enterRule($localContext, 14, self::RULE_numValue);
+
+		    try {
+		        $this->enterOuterAlt($localContext, 1);
+		        $this->setState(78);
+		        $this->match(self::T_Num);
+		        ContextController::startPropertieContext("NUM_VALUE");
+		        ContextController::startContext("Num");
+		        ContextController::setValue($localContext->getText());
+		        ContextController::endContext();
+		        ContextController::endPropertieContext();
 		    } catch (RecognitionException $exception) {
 		        $localContext->exception = $exception;
 		        $this->errorHandler->reportError($this, $exception);
@@ -445,20 +485,20 @@ namespace Gramatic {
 
 		    try {
 		        $this->enterOuterAlt($localContext, 1);
-		        $this->setState(68);
+		        $this->setState(85);
 		        $this->match(self::T__5);
-		        $this->setState(70); 
+		        $this->setState(87); 
 		        $this->errorHandler->sync($this);
 
 		        $_la = $this->input->LA(1);
 		        do {
-		        	$this->setState(69);
+		        	$this->setState(86);
 		        	$this->value_attr();
-		        	$this->setState(72); 
+		        	$this->setState(89); 
 		        	$this->errorHandler->sync($this);
 		        	$_la = $this->input->LA(1);
 		        } while ($_la === self::T_Var);
-		        $this->setState(74);
+		        $this->setState(91);
 		        $this->match(self::T__6);
 		    } catch (RecognitionException $exception) {
 		        $localContext->exception = $exception;
@@ -482,15 +522,15 @@ namespace Gramatic {
 
 		    try {
 		        $this->enterOuterAlt($localContext, 1);
-		        $this->setState(76);
+		        $this->setState(93);
 		        $this->match(self::T_Var);
-		        $this->setState(77);
+		        $this->setState(94);
 		        $this->match(self::T_Type);
-		        $this->setState(78);
+		        $this->setState(95);
 		        $this->match(self::T_Attr);
-		        $this->setState(79);
+		        $this->setState(96);
 		        $this->expr();
-		        $this->setState(80);
+		        $this->setState(97);
 		        $this->match(self::T_PVirg);
 		    } catch (RecognitionException $exception) {
 		        $localContext->exception = $exception;
@@ -514,14 +554,15 @@ namespace Gramatic {
 
 		    try {
 		        $this->enterOuterAlt($localContext, 1);
-		        $this->setState(82);
+		        ContextController::startPropertieContext("EXPRESSION");
+		        $this->setState(100);
 		        $this->termo();
-		        $this->setState(87);
+		        $this->setState(105);
 		        $this->errorHandler->sync($this);
 
 		        $_la = $this->input->LA(1);
 		        while ($_la === self::T_Soma || $_la === self::T_Sub) {
-		        	$this->setState(83);
+		        	$this->setState(101);
 
 		        	$_la = $this->input->LA(1);
 
@@ -535,12 +576,13 @@ namespace Gramatic {
 		        		$this->errorHandler->reportMatch($this);
 		        		$this->consume();
 		        	}
-		        	$this->setState(84);
+		        	$this->setState(102);
 		        	$this->termo();
-		        	$this->setState(89);
+		        	$this->setState(107);
 		        	$this->errorHandler->sync($this);
 		        	$_la = $this->input->LA(1);
 		        }
+		        ContextController::endPropertieContext();
 		    } catch (RecognitionException $exception) {
 		        $localContext->exception = $exception;
 		        $this->errorHandler->reportError($this, $exception);
@@ -563,14 +605,14 @@ namespace Gramatic {
 
 		    try {
 		        $this->enterOuterAlt($localContext, 1);
-		        $this->setState(90);
+		        $this->setState(110);
 		        $this->fator();
-		        $this->setState(95);
+		        $this->setState(115);
 		        $this->errorHandler->sync($this);
 
 		        $_la = $this->input->LA(1);
 		        while ($_la === self::T_Mult || $_la === self::T_Div) {
-		        	$this->setState(91);
+		        	$this->setState(111);
 
 		        	$_la = $this->input->LA(1);
 
@@ -584,9 +626,9 @@ namespace Gramatic {
 		        		$this->errorHandler->reportMatch($this);
 		        		$this->consume();
 		        	}
-		        	$this->setState(92);
+		        	$this->setState(112);
 		        	$this->fator();
-		        	$this->setState(97);
+		        	$this->setState(117);
 		        	$this->errorHandler->sync($this);
 		        	$_la = $this->input->LA(1);
 		        }
@@ -611,35 +653,37 @@ namespace Gramatic {
 		    $this->enterRule($localContext, 24, self::RULE_fator);
 
 		    try {
-		        $this->setState(105);
+		        $this->enterOuterAlt($localContext, 1);
+		        $this->setState(130);
 		        $this->errorHandler->sync($this);
 
 		        switch ($this->input->LA(1)) {
 		            case self::T_Var:
-		            	$this->enterOuterAlt($localContext, 1);
-		            	$this->setState(98);
+		            	$this->setState(118);
 		            	$this->match(self::T_Var);
+		            	ContextController::shortContext("Var");
 		            	break;
 
 		            case self::T_Const:
-		            	$this->enterOuterAlt($localContext, 2);
-		            	$this->setState(99);
+		            	$this->setState(120);
 		            	$this->match(self::T_Const);
+		            	ContextController::shortContext("Var");
 		            	break;
 
 		            case self::T_Num:
-		            	$this->enterOuterAlt($localContext, 3);
-		            	$this->setState(100);
+		            	$this->setState(122);
 		            	$this->match(self::T_Num);
+		            	ContextController::startContext("String");
+		            	ContextController::setValue($localContext->getText());
+		            	ContextController::endContext();
 		            	break;
 
 		            case self::T_OP:
-		            	$this->enterOuterAlt($localContext, 4);
-		            	$this->setState(101);
+		            	$this->setState(126);
 		            	$this->match(self::T_OP);
-		            	$this->setState(102);
+		            	$this->setState(127);
 		            	$this->expr();
-		            	$this->setState(103);
+		            	$this->setState(128);
 		            	$this->match(self::T_CP);
 		            	break;
 
@@ -877,14 +921,14 @@ namespace Gramatic\Context {
 		    return KotanParser::RULE_show;
 	    }
 
+	    public function T_PVirg(): ?TerminalNode
+	    {
+	        return $this->getToken(KotanParser::T_PVirg, 0);
+	    }
+
 	    public function T_OP(): ?TerminalNode
 	    {
 	        return $this->getToken(KotanParser::T_OP, 0);
-	    }
-
-	    public function text_show(): ?Text_showContext
-	    {
-	    	return $this->getTypedRuleContext(Text_showContext::class, 0);
 	    }
 
 	    public function T_CP(): ?TerminalNode
@@ -892,9 +936,14 @@ namespace Gramatic\Context {
 	        return $this->getToken(KotanParser::T_CP, 0);
 	    }
 
-	    public function T_PVirg(): ?TerminalNode
+	    public function T_Soma(): ?TerminalNode
 	    {
-	        return $this->getToken(KotanParser::T_PVirg, 0);
+	        return $this->getToken(KotanParser::T_Soma, 0);
+	    }
+
+	    public function numValue(): ?NumValueContext
+	    {
+	    	return $this->getTypedRuleContext(NumValueContext::class, 0);
 	    }
 
 		public function enterRule(ParseTreeListener $listener): void
@@ -908,38 +957,6 @@ namespace Gramatic\Context {
 		{
 			if ($listener instanceof KotanListener) {
 			    $listener->exitShow($this);
-		    }
-		}
-	} 
-
-	class Text_showContext extends ParserRuleContext
-	{
-		public function __construct(?ParserRuleContext $parent, ?int $invokingState = null)
-		{
-			parent::__construct($parent, $invokingState);
-		}
-
-		public function getRuleIndex(): int
-		{
-		    return KotanParser::RULE_text_show;
-	    }
-
-	    public function text_value(): ?Text_valueContext
-	    {
-	    	return $this->getTypedRuleContext(Text_valueContext::class, 0);
-	    }
-
-		public function enterRule(ParseTreeListener $listener): void
-		{
-			if ($listener instanceof KotanListener) {
-			    $listener->enterText_show($this);
-		    }
-		}
-
-		public function exitRule(ParseTreeListener $listener): void
-		{
-			if ($listener instanceof KotanListener) {
-			    $listener->exitText_show($this);
 		    }
 		}
 	} 
@@ -972,6 +989,38 @@ namespace Gramatic\Context {
 		{
 			if ($listener instanceof KotanListener) {
 			    $listener->exitText_value($this);
+		    }
+		}
+	} 
+
+	class NumValueContext extends ParserRuleContext
+	{
+		public function __construct(?ParserRuleContext $parent, ?int $invokingState = null)
+		{
+			parent::__construct($parent, $invokingState);
+		}
+
+		public function getRuleIndex(): int
+		{
+		    return KotanParser::RULE_numValue;
+	    }
+
+	    public function T_Num(): ?TerminalNode
+	    {
+	        return $this->getToken(KotanParser::T_Num, 0);
+	    }
+
+		public function enterRule(ParseTreeListener $listener): void
+		{
+			if ($listener instanceof KotanListener) {
+			    $listener->enterNumValue($this);
+		    }
+		}
+
+		public function exitRule(ParseTreeListener $listener): void
+		{
+			if ($listener instanceof KotanListener) {
+			    $listener->exitNumValue($this);
 		    }
 		}
 	} 

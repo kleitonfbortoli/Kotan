@@ -4,20 +4,38 @@ namespace Controller;
 
 class CompilerController {
     private static string $genetatedCode;
+    private static string $genetatedVars;
     private static string $ident;
 
     public function __construct()
     {
         self::$genetatedCode = "";
-        self::$ident = "";
+        self::$genetatedVars = "";
+        self::$ident = "\t";
     }
 
     public static function addCode(string $code) : void {
-        self::$genetatedCode .= $code."\n";
+        self::$genetatedCode .= self::$ident . $code . "\n";
     }
 
-    public static function getCode() : string {
+    public static function addComment(string $comment) : void {
+        self::$genetatedCode .= self::$ident . "#" . $comment . "\n";
+    }
+
+    public static function addEmptyLine() : void {
+        self::$genetatedCode .= "\n";
+    }
+
+    private static function getCode() : string {
         return self::$genetatedCode;
+    }
+
+    public static function addVar(string $code) : void {
+        self::$genetatedVars .= "\t" . $code."\n";
+    }
+
+    private static function getVar() : string {
+        return self::$genetatedVars;
     }
 
     public static function addLvlIdentation() {
@@ -31,11 +49,16 @@ class CompilerController {
     }
 
     public static function printCode() {
+
+        VarsController::compile();
+
+        echo ".data";
+        echo "\n";
+        echo self::getVar();
         echo "\n";
         echo "\n";
+        echo ".text";
         echo "\n";
-        echo "\n";
-        echo "\n";
-        echo self::$genetatedCode;
+        echo self::getCode();
     }
 }

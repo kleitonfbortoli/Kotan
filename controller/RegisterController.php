@@ -16,6 +16,7 @@ class RegisterController {
     {
         self::$tRegister = TRegistrador::getList();
         self::$sRegister = SRegistrador::getList();
+        self::$inUseRegisters = [];
     }
 
     public static function getTRegister() : string {

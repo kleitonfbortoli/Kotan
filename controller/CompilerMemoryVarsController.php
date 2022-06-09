@@ -23,6 +23,9 @@ class CompilerMemoryVarsController {
     }
 
     public static function getVarOnStack() : ?Variable {
-        return self::$registersStack->get();
+        $var = self::$registersStack->get();
+        $var->clean();
+
+        return $var;
     }
 }

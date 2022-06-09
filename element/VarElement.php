@@ -8,16 +8,12 @@ use Assembly\Variable;
 use Interface\InterfaceElement;
 use Trait\Element\Values;
 
-class StringElement extends Element implements InterfaceElement {
+class VarElement extends Element implements InterfaceElement {
     use Values;
 
     public function compile(): void
     {
-        $dataSystemName = VarsController::nextSystemData();
-
-        $var = Variable::createStringVar($dataSystemName, $this->getValue());
-
-        VarsController::addVar($var);
+        $var = VarsController::getVar($this->getValue());
 
         CompilerMemoryVarsController::addVarToStack($var);
     }

@@ -3,14 +3,15 @@
 namespace Assembly;
 
 use Controller\CompilerController;
+use Controller\RegisterController;
 use Enum\EnumVariableDefault;
 use Enum\EnumVariableType;
 
-class Variable {
+abstract class Variable {
     public function __construct(
-        private string $type,
         private string $name,
-        private mixed $value,
+        private string $type,
+        private mixed $value = '',
     )
     {}
 
@@ -27,20 +28,24 @@ class Variable {
         return $this->value;
     }
 
-    public function compile() : void {
-        $compiled = "";
-
-        CompilerController::addCode("{$this->name}: {$this->type} {$this->value}");
+    public function isRegister() : bool {
+        return false;
     }
 
-    public static function createStringData(string $name, string | null $value) : Variable {
+    public function clean() {}
+
+    public function compile() : void {
+        CompilerController::addVar("{$this->name}: {$this->type} {$this->value}");
+    }
+
+    public static function createStringVar(string $name, string | null $value) : Variable {
         if(empty($value)) {
             $value = EnumVariableDefault::String;
         }
 
         $var = new Variable(
-            EnumVariableType::String,
             $name,
+            EnumVariableType::String,
             '"'.$value.'"'
         );
 

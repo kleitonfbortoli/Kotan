@@ -7,6 +7,7 @@
             "Assembly\\": "assembly",
             "Basic\\": "basic",
             "Controller\\": "controller",
+            "Parser\\": "parser",
             "Element\\": "element",
             "Enum\\": "enum",
             "Gramatic\\": "gramatic",

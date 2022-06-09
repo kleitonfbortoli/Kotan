@@ -11,7 +11,7 @@ class PropertieElement extends Element implements InterfaceElement {
 
     public function compile(): void
     {
-
+        $this->compileChilds();
     }
 
 }

@@ -6,11 +6,11 @@
 
 namespace Gramatic;
 
-	require_once 'vendor/autoload.php';
+require_once 'vendor/autoload.php';
+use Parser\KotanCustonParser;
+use \Controller\ContextController;
 
-	use \Controller\ContextController;
-
-	new ContextController();
+new ContextController();
 
 use Antlr\Antlr4\Runtime\Tree\ParseTreeListener;
 
@@ -80,16 +80,6 @@ interface KotanListener extends ParseTreeListener {
 	 */
 	public function exitShow(Context\ShowContext $context): void;
 	/**
-	 * Enter a parse tree produced by {@see KotanParser::text_show()}.
-	 * @param $context The parse tree.
-	 */
-	public function enterText_show(Context\Text_showContext $context): void;
-	/**
-	 * Exit a parse tree produced by {@see KotanParser::text_show()}.
-	 * @param $context The parse tree.
-	 */
-	public function exitText_show(Context\Text_showContext $context): void;
-	/**
 	 * Enter a parse tree produced by {@see KotanParser::text_value()}.
 	 * @param $context The parse tree.
 	 */
@@ -99,6 +89,16 @@ interface KotanListener extends ParseTreeListener {
 	 * @param $context The parse tree.
 	 */
 	public function exitText_value(Context\Text_valueContext $context): void;
+	/**
+	 * Enter a parse tree produced by {@see KotanParser::numValue()}.
+	 * @param $context The parse tree.
+	 */
+	public function enterNumValue(Context\NumValueContext $context): void;
+	/**
+	 * Exit a parse tree produced by {@see KotanParser::numValue()}.
+	 * @param $context The parse tree.
+	 */
+	public function exitNumValue(Context\NumValueContext $context): void;
 	/**
 	 * Enter a parse tree produced by {@see KotanParser::vars_def()}.
 	 * @param $context The parse tree.

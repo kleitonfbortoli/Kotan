@@ -6,11 +6,11 @@
 
 namespace Gramatic;
 
-	require_once 'vendor/autoload.php';
+require_once 'vendor/autoload.php';
+use Parser\KotanCustonParser;
+use \Controller\ContextController;
 
-	use \Controller\ContextController;
-
-	new ContextController();
+new ContextController();
 
 
 use Antlr\Antlr4\Runtime\ParserRuleContext;
@@ -107,19 +107,6 @@ class KotanBaseListener implements KotanListener
 	 *
 	 * The default implementation does nothing.
 	 */
-	public function enterText_show(Context\Text_showContext $context): void {}
-
-	/**
-	 * {@inheritdoc}
-	 *
-	 * The default implementation does nothing.
-	 */
-	public function exitText_show(Context\Text_showContext $context): void {}
-	/**
-	 * {@inheritdoc}
-	 *
-	 * The default implementation does nothing.
-	 */
 	public function enterText_value(Context\Text_valueContext $context): void {}
 
 	/**
@@ -128,6 +115,19 @@ class KotanBaseListener implements KotanListener
 	 * The default implementation does nothing.
 	 */
 	public function exitText_value(Context\Text_valueContext $context): void {}
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function enterNumValue(Context\NumValueContext $context): void {}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function exitNumValue(Context\NumValueContext $context): void {}
 	/**
 	 * {@inheritdoc}
 	 *

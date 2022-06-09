@@ -55,6 +55,11 @@ class ContextController {
         self::$currentElement = $fatherElement;
     }
 
+    public static function shortContext(string $context) {
+        self::startContext($context);
+        self::endContext();
+    }
+
     public static function startPropertieContext(string $propertieType) {
         array_push(self::$propertieType, $propertieType);
 
@@ -65,18 +70,12 @@ class ContextController {
         self::endContext();
     }
 
+    public static function setValue(string $value) : void {
+        self::$currentElement->setValue($value);
+    }
+
     private static function compile() {
-        CompilerController::addCode(".data");
-        CompilerController::addLvlIdentation();
-
-        VarsController::compile();
-        CompilerController::removeLvlIdentation();
-
-        CompilerController::addCode(".text");
-        CompilerController::addLvlIdentation();
-
         self::$currentElement->compile();
-
         CompilerController::printCode();
     }
 }

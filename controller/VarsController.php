@@ -18,20 +18,33 @@ class VarsController {
     public static function addVar(Variable $var) {
         $name = $var->getName();
 
-        if(!empty($registredVars[$name])) {
+        if(!empty(self::$registredVars[$name])) {
             throw new Exception("Variável já declarada", 1);
         }
 
-        $registredVars[$name] = $var;
+        if($var->getType() === 'tmp') {
+            throw new Exception("Variavel de memória n pode ser salva na ran diretamente", 1);
+        }
+
+        self::$registredVars[$name] = $var;
+    }
+
+    public static function getVar(string $varName) : Variable {
+
+        if(empty(self::$registredVars[$varName])) {
+            throw new Exception("Variável não declarada", 1);
+        }
+
+        return self::$registredVars[$varName];
     }
 
     public static function compile() : void {
 
-        if(empty($registredVars)) {
+        if(empty(self::$registredVars)) {
             return;
         }
 
-        foreach ($registredVars as $data) {
+        foreach (self::$registredVars as $data) {
             $data->compile();
         }
 
