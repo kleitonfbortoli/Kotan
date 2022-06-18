@@ -1,12 +1,8 @@
 <?php
 namespace Trait\Element;
 
-trait Values {
-    private string $valueVar;
-
-    public function __construct() {
-        $this->valueVar = "";
-    }
+trait Value {
+    private string $valueVar = "";
 
     public function setValue(string $valueVar) {
         $this->valueVar = $valueVar;

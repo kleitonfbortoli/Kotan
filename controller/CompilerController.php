@@ -26,6 +26,10 @@ class CompilerController {
         self::$genetatedCode .= "\n";
     }
 
+    public static function addMarkLabel(string $label) : void {
+        self::$genetatedCode .= self::$ident . "{$label}:\n";
+    }
+
     private static function getCode() : string {
         return self::$genetatedCode;
     }

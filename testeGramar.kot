@@ -1,8 +1,5 @@
 PROGRAM START
-	COD START
-		SHOW(200);
-		SHOW(200);
-		SHOW(200);
-		SHOW(200);
-	COD END
+	let a =1;
+	a = InputInt();
+	SHOW(a);
 PROGRAM END

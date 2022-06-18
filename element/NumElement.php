@@ -5,15 +5,13 @@ use Assembly\LoadFunction;
 use Assembly\Register;
 use Basic\Element;
 use Controller\CompilerMemoryVarsController;
-use Controller\VarsController;
-use Assembly\Variable;
 use Controller\CompilerController;
 use Enum\EnumVariableType;
 use Interface\InterfaceElement;
-use Trait\Element\Values;
+use Trait\Element\Value;
 
 class NumElement extends Element implements InterfaceElement {
-    use Values;
+    use Value;
 
     public function compile(): void
     {

@@ -6,11 +6,9 @@
 
 namespace Gramatic;
 
-require_once 'vendor/autoload.php';
-use Parser\KotanCustonParser;
-use \Controller\ContextController;
-
-new ContextController();
+	require_once 'vendor/autoload.php';
+	use Parser\KotanCustonParser;
+	use Controller\ContextController;
 
 use Antlr\Antlr4\Runtime\Tree\ParseTreeListener;
 
@@ -30,26 +28,6 @@ interface KotanListener extends ParseTreeListener {
 	 */
 	public function exitProg(Context\ProgContext $context): void;
 	/**
-	 * Enter a parse tree produced by {@see KotanParser::prog_script()}.
-	 * @param $context The parse tree.
-	 */
-	public function enterProg_script(Context\Prog_scriptContext $context): void;
-	/**
-	 * Exit a parse tree produced by {@see KotanParser::prog_script()}.
-	 * @param $context The parse tree.
-	 */
-	public function exitProg_script(Context\Prog_scriptContext $context): void;
-	/**
-	 * Enter a parse tree produced by {@see KotanParser::cod_block()}.
-	 * @param $context The parse tree.
-	 */
-	public function enterCod_block(Context\Cod_blockContext $context): void;
-	/**
-	 * Exit a parse tree produced by {@see KotanParser::cod_block()}.
-	 * @param $context The parse tree.
-	 */
-	public function exitCod_block(Context\Cod_blockContext $context): void;
-	/**
 	 * Enter a parse tree produced by {@see KotanParser::cod_script()}.
 	 * @param $context The parse tree.
 	 */
@@ -59,16 +37,6 @@ interface KotanListener extends ParseTreeListener {
 	 * @param $context The parse tree.
 	 */
 	public function exitCod_script(Context\Cod_scriptContext $context): void;
-	/**
-	 * Enter a parse tree produced by {@see KotanParser::attr()}.
-	 * @param $context The parse tree.
-	 */
-	public function enterAttr(Context\AttrContext $context): void;
-	/**
-	 * Exit a parse tree produced by {@see KotanParser::attr()}.
-	 * @param $context The parse tree.
-	 */
-	public function exitAttr(Context\AttrContext $context): void;
 	/**
 	 * Enter a parse tree produced by {@see KotanParser::show()}.
 	 * @param $context The parse tree.
@@ -100,15 +68,55 @@ interface KotanListener extends ParseTreeListener {
 	 */
 	public function exitNumValue(Context\NumValueContext $context): void;
 	/**
-	 * Enter a parse tree produced by {@see KotanParser::vars_def()}.
+	 * Enter a parse tree produced by {@see KotanParser::input_int()}.
 	 * @param $context The parse tree.
 	 */
-	public function enterVars_def(Context\Vars_defContext $context): void;
+	public function enterInput_int(Context\Input_intContext $context): void;
 	/**
-	 * Exit a parse tree produced by {@see KotanParser::vars_def()}.
+	 * Exit a parse tree produced by {@see KotanParser::input_int()}.
 	 * @param $context The parse tree.
 	 */
-	public function exitVars_def(Context\Vars_defContext $context): void;
+	public function exitInput_int(Context\Input_intContext $context): void;
+	/**
+	 * Enter a parse tree produced by {@see KotanParser::var_attr()}.
+	 * @param $context The parse tree.
+	 */
+	public function enterVar_attr(Context\Var_attrContext $context): void;
+	/**
+	 * Exit a parse tree produced by {@see KotanParser::var_attr()}.
+	 * @param $context The parse tree.
+	 */
+	public function exitVar_attr(Context\Var_attrContext $context): void;
+	/**
+	 * Enter a parse tree produced by {@see KotanParser::var_rattr()}.
+	 * @param $context The parse tree.
+	 */
+	public function enterVar_rattr(Context\Var_rattrContext $context): void;
+	/**
+	 * Exit a parse tree produced by {@see KotanParser::var_rattr()}.
+	 * @param $context The parse tree.
+	 */
+	public function exitVar_rattr(Context\Var_rattrContext $context): void;
+	/**
+	 * Enter a parse tree produced by {@see KotanParser::type()}.
+	 * @param $context The parse tree.
+	 */
+	public function enterType(Context\TypeContext $context): void;
+	/**
+	 * Exit a parse tree produced by {@see KotanParser::type()}.
+	 * @param $context The parse tree.
+	 */
+	public function exitType(Context\TypeContext $context): void;
+	/**
+	 * Enter a parse tree produced by {@see KotanParser::var_name()}.
+	 * @param $context The parse tree.
+	 */
+	public function enterVar_name(Context\Var_nameContext $context): void;
+	/**
+	 * Exit a parse tree produced by {@see KotanParser::var_name()}.
+	 * @param $context The parse tree.
+	 */
+	public function exitVar_name(Context\Var_nameContext $context): void;
 	/**
 	 * Enter a parse tree produced by {@see KotanParser::value_attr()}.
 	 * @param $context The parse tree.
@@ -149,4 +157,64 @@ interface KotanListener extends ParseTreeListener {
 	 * @param $context The parse tree.
 	 */
 	public function exitFator(Context\FatorContext $context): void;
+	/**
+	 * Enter a parse tree produced by {@see KotanParser::var_value()}.
+	 * @param $context The parse tree.
+	 */
+	public function enterVar_value(Context\Var_valueContext $context): void;
+	/**
+	 * Exit a parse tree produced by {@see KotanParser::var_value()}.
+	 * @param $context The parse tree.
+	 */
+	public function exitVar_value(Context\Var_valueContext $context): void;
+	/**
+	 * Enter a parse tree produced by {@see KotanParser::const_value()}.
+	 * @param $context The parse tree.
+	 */
+	public function enterConst_value(Context\Const_valueContext $context): void;
+	/**
+	 * Exit a parse tree produced by {@see KotanParser::const_value()}.
+	 * @param $context The parse tree.
+	 */
+	public function exitConst_value(Context\Const_valueContext $context): void;
+	/**
+	 * Enter a parse tree produced by {@see KotanParser::conditional()}.
+	 * @param $context The parse tree.
+	 */
+	public function enterConditional(Context\ConditionalContext $context): void;
+	/**
+	 * Exit a parse tree produced by {@see KotanParser::conditional()}.
+	 * @param $context The parse tree.
+	 */
+	public function exitConditional(Context\ConditionalContext $context): void;
+	/**
+	 * Enter a parse tree produced by {@see KotanParser::condition()}.
+	 * @param $context The parse tree.
+	 */
+	public function enterCondition(Context\ConditionContext $context): void;
+	/**
+	 * Exit a parse tree produced by {@see KotanParser::condition()}.
+	 * @param $context The parse tree.
+	 */
+	public function exitCondition(Context\ConditionContext $context): void;
+	/**
+	 * Enter a parse tree produced by {@see KotanParser::laco()}.
+	 * @param $context The parse tree.
+	 */
+	public function enterLaco(Context\LacoContext $context): void;
+	/**
+	 * Exit a parse tree produced by {@see KotanParser::laco()}.
+	 * @param $context The parse tree.
+	 */
+	public function exitLaco(Context\LacoContext $context): void;
+	/**
+	 * Enter a parse tree produced by {@see KotanParser::logic_stat()}.
+	 * @param $context The parse tree.
+	 */
+	public function enterLogic_stat(Context\Logic_statContext $context): void;
+	/**
+	 * Exit a parse tree produced by {@see KotanParser::logic_stat()}.
+	 * @param $context The parse tree.
+	 */
+	public function exitLogic_stat(Context\Logic_statContext $context): void;
 }

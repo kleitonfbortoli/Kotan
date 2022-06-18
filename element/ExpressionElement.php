@@ -6,7 +6,7 @@ use Basic\Element;
 use Interface\InterfaceElement;
 use Trait\Element\Childreens;
 
-class PropertieElement extends Element implements InterfaceElement {
+class ExpressionElement extends Element implements InterfaceElement {
     use Childreens;
 
     public function compile(): void

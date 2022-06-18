@@ -4,13 +4,9 @@ namespace Trait\Element;
 use Basic\Element;
 
 trait Childreens {
-    protected array $childs;
+    protected array $childs = array();
 
     public function addChild(Element $child) {
-        if(empty($this->childs)) {
-            $this->childs = array();
-        }
-
         array_push($this->childs, $child);
     }
 

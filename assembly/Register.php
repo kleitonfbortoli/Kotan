@@ -25,7 +25,7 @@ class Register extends Variable {
         return $var;
     }
 
-    public static function getSVar(mixed $value, string $type) {
+    public static function getSVar(mixed $value, string $type) : Variable {
         $registerName = RegisterController::getSRegister();
 
         $var = new Register(

@@ -7,12 +7,14 @@
             "Assembly\\": "assembly",
             "Basic\\": "basic",
             "Controller\\": "controller",
-            "Parser\\": "parser",
             "Element\\": "element",
             "Enum\\": "enum",
+            "Error\\": "error",
+            "ErrorStrategy\\": "error-strategy",
             "Gramatic\\": "gramatic",
             "Interface\\": "interface",
             "Lib\\": "lib",
+            "Parser\\": "parser",
             "Trait\\": "trait",
             "Utils\\": "utils"
         }

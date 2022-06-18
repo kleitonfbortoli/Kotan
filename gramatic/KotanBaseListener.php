@@ -6,11 +6,9 @@
 
 namespace Gramatic;
 
-require_once 'vendor/autoload.php';
-use Parser\KotanCustonParser;
-use \Controller\ContextController;
-
-new ContextController();
+	require_once 'vendor/autoload.php';
+	use Parser\KotanCustonParser;
+	use Controller\ContextController;
 
 
 use Antlr\Antlr4\Runtime\ParserRuleContext;
@@ -42,32 +40,6 @@ class KotanBaseListener implements KotanListener
 	 *
 	 * The default implementation does nothing.
 	 */
-	public function enterProg_script(Context\Prog_scriptContext $context): void {}
-
-	/**
-	 * {@inheritdoc}
-	 *
-	 * The default implementation does nothing.
-	 */
-	public function exitProg_script(Context\Prog_scriptContext $context): void {}
-	/**
-	 * {@inheritdoc}
-	 *
-	 * The default implementation does nothing.
-	 */
-	public function enterCod_block(Context\Cod_blockContext $context): void {}
-
-	/**
-	 * {@inheritdoc}
-	 *
-	 * The default implementation does nothing.
-	 */
-	public function exitCod_block(Context\Cod_blockContext $context): void {}
-	/**
-	 * {@inheritdoc}
-	 *
-	 * The default implementation does nothing.
-	 */
 	public function enterCod_script(Context\Cod_scriptContext $context): void {}
 
 	/**
@@ -76,19 +48,6 @@ class KotanBaseListener implements KotanListener
 	 * The default implementation does nothing.
 	 */
 	public function exitCod_script(Context\Cod_scriptContext $context): void {}
-	/**
-	 * {@inheritdoc}
-	 *
-	 * The default implementation does nothing.
-	 */
-	public function enterAttr(Context\AttrContext $context): void {}
-
-	/**
-	 * {@inheritdoc}
-	 *
-	 * The default implementation does nothing.
-	 */
-	public function exitAttr(Context\AttrContext $context): void {}
 	/**
 	 * {@inheritdoc}
 	 *
@@ -133,14 +92,66 @@ class KotanBaseListener implements KotanListener
 	 *
 	 * The default implementation does nothing.
 	 */
-	public function enterVars_def(Context\Vars_defContext $context): void {}
+	public function enterInput_int(Context\Input_intContext $context): void {}
 
 	/**
 	 * {@inheritdoc}
 	 *
 	 * The default implementation does nothing.
 	 */
-	public function exitVars_def(Context\Vars_defContext $context): void {}
+	public function exitInput_int(Context\Input_intContext $context): void {}
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function enterVar_attr(Context\Var_attrContext $context): void {}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function exitVar_attr(Context\Var_attrContext $context): void {}
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function enterVar_rattr(Context\Var_rattrContext $context): void {}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function exitVar_rattr(Context\Var_rattrContext $context): void {}
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function enterType(Context\TypeContext $context): void {}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function exitType(Context\TypeContext $context): void {}
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function enterVar_name(Context\Var_nameContext $context): void {}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function exitVar_name(Context\Var_nameContext $context): void {}
 	/**
 	 * {@inheritdoc}
 	 *
@@ -193,6 +204,84 @@ class KotanBaseListener implements KotanListener
 	 * The default implementation does nothing.
 	 */
 	public function exitFator(Context\FatorContext $context): void {}
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function enterVar_value(Context\Var_valueContext $context): void {}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function exitVar_value(Context\Var_valueContext $context): void {}
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function enterConst_value(Context\Const_valueContext $context): void {}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function exitConst_value(Context\Const_valueContext $context): void {}
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function enterConditional(Context\ConditionalContext $context): void {}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function exitConditional(Context\ConditionalContext $context): void {}
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function enterCondition(Context\ConditionContext $context): void {}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function exitCondition(Context\ConditionContext $context): void {}
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function enterLaco(Context\LacoContext $context): void {}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function exitLaco(Context\LacoContext $context): void {}
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function enterLogic_stat(Context\Logic_statContext $context): void {}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation does nothing.
+	 */
+	public function exitLogic_stat(Context\Logic_statContext $context): void {}
 
 	/**
 	 * {@inheritdoc}

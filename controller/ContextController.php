@@ -2,14 +2,10 @@
 namespace Controller;
 
 use Basic\Element;
-use Basic\Propertie;
-use Enum\EnumElements;
-use Exception;
 use Utils\UtilsElement;
 
 class ContextController {
     private static Element $currentElement;
-    private static array $propertieType;
 
     public function __construct() {
         new CompilerController();
@@ -17,7 +13,7 @@ class ContextController {
         new ElementStackController();
         new RegisterController();
         new VarsController();
-        self::$propertieType = [];
+        new ConditionalLabelController();
     }
 
     // toda vez que começar um if ou coisa do tipo ele vai dar um start context
@@ -45,14 +41,20 @@ class ContextController {
             die;
         }
 
-        // verifica se a ação deve ser adicionar uma propriedade
-        if(self::$currentElement instanceof Propertie) {
-            $fatherElement->addPropertie(array_pop(self::$propertieType),self::$currentElement);
-        } else {
-            $fatherElement->addChild(self::$currentElement);
-        }
+        $fatherElement->addChild(self::$currentElement);
 
         self::$currentElement = $fatherElement;
+    }
+
+    // Ao chegar no final do contexto atual, é chamado essa e sobe a stack
+    // Quando a stack retornar null, é o momento de compilar o código
+    public static function rollbackContext()
+    {
+        echo "rollbackContext\n";
+
+        // $fatherElement = ElementStackController::getElement();
+
+        // self::$currentElement = $fatherElement;
     }
 
     public static function shortContext(string $context) {
@@ -60,18 +62,16 @@ class ContextController {
         self::endContext();
     }
 
-    public static function startPropertieContext(string $propertieType) {
-        array_push(self::$propertieType, $propertieType);
-
-        self::startContext('Propertie');
-    }
-
-    public static function endPropertieContext() {
-        self::endContext();
-    }
-
     public static function setValue(string $value) : void {
         self::$currentElement->setValue($value);
+    }
+
+    public static function setLogicalOperator(string $value) : void {
+        self::$currentElement->setLogicalOperator($value);
+    }
+
+    public static function setName(string $value) : void {
+        self::$currentElement->setName($value);
     }
 
     private static function compile() {

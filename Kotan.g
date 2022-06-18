@@ -6,11 +6,9 @@ options {
 
 
 @parser::header {
-require_once 'vendor/autoload.php';
-use Parser\KotanCustonParser;
-use \Controller\ContextController;
-
-new ContextController();
+	require_once 'vendor/autoload.php';
+	use Parser\KotanCustonParser;
+	use Controller\ContextController;
 }
 
 /*
@@ -20,106 +18,190 @@ new ContextController();
 */
 
 /* program start */
-prog
-	//  @init{asdas}
-	//  @after{asdas}
-	:	'PROGRAM START'
-					{ContextController::startContext("Program");}
-					prog_script
-					{ContextController::endContext();}
+prog		@init{ContextController::startContext("Program");}
+			@after{ContextController::endContext();}
+			:	'PROGRAM START'
+					cod_script +
 				'PROGRAM END'
 			;
 
-prog_script	: vars_def cod_block //(funcs_def)? (classes_def)?
-			;
-cod_block	:	'COD START'
-				cod_script +
-				'COD END'
-			;
-
-cod_script	: show | attr
-			;
-
-attr		: (
-				T_Var {\$context_attr = "Var";}
-				| T_Const {\$context_attr = "Const";}
-			)
-			T_Attr
-				{ContextController::startContext(\$context_attr);}
-				expr
-				{ContextController::endContext();}
-			T_PVirg
+cod_script	: (var_attr | var_rattr | show | conditional | laco)
 			;
 /* program end */
 
 /* native functions start */
-show 		:	'SHOW'
+show		@init{ContextController::startContext("Show");}
+			@after{ContextController::endContext();}
+			:
+				'SHOW'
 				(
 					T_OP
-					{ContextController::startContext("Show");}
-						(T_Soma | numValue)
-					{ContextController::endContext();}
+						( text_value | expr )
 					T_CP
 				)
 				T_PVirg
 			;
 
-text_value	:	T_Num
-				{ContextController::startPropertieContext("STRING_VALUE");}
-				{ContextController::startContext("String");}
-				{ContextController::setValue(\$localContext->getText());}
-				{ContextController::endContext();}
-				{ContextController::endPropertieContext();}
+text_value	@init{ContextController::startContext("String");}
+			@after{ContextController::endContext();}
+			:
+				T_Text {ContextController::setValue(\$localContext->getText());}
 			;
-numValue	:	T_Num
-				{ContextController::startPropertieContext("NUM_VALUE");}
-				{ContextController::startContext("Num");}
-				{ContextController::setValue(\$localContext->getText());}
-				{ContextController::endContext();}
-				{ContextController::endPropertieContext();}
+numValue	@init{ContextController::startContext("Num");}
+			@after{ContextController::endContext();}
+			:
+				T_Num {ContextController::setValue(\$localContext->getText());}
 			;
 
-/* vars cod start */
-vars_def	: 'VARS START' (value_attr)+ 'VARS END'
+input_int	@init{ContextController::startContext("InputInt");}
+			@after{ContextController::endContext();}
+			:
+			'InputInt' T_OP T_CP
 			;
 
-value_attr	: T_Var T_Type T_Attr expr T_PVirg
+var_attr	@init{ContextController::startContext("Assignment");}
+			@after{ContextController::endContext();}
+			:
+				T_Let
+				var_name
+				T_Attr
+				value_attr
+				T_PVirg
 			;
-/* vars cod end */
+
+var_rattr	@init{ContextController::startContext("ReAssignment");}
+			@after{ContextController::endContext();}
+			:
+				var_name
+				T_Attr
+				expr
+				T_PVirg
+			;
+
+type		: T_Type;
+
+var_name	:
+				T_Var {ContextController::setName(\$localContext->getText());}
+			;
+
+value_attr	:
+				T_Num {ContextController::setValue(\$localContext->getText());}
+			;
 
 /* expressions start */
-expr		: 	{ContextController::startPropertieContext("EXPRESSION");}
+expr		@init{ContextController::startContext("Expression");}
+			@after{ContextController::endContext();}
+			:
 				termo
 				(
 					(
-						T_Soma
-						| T_Sub
+						T_Soma {\$context_operator = "Sum";}
+						| T_Sub {\$context_operator = "Subtraction";}
 					)
 					termo
+					{ContextController::shortContext(\$context_operator);}
 				)*
-				{ContextController::endPropertieContext();}
 			;
-termo		: 	fator
+termo		:
+				fator
 				(
 					(
-						T_Mult
-						| T_Div
+						T_Mult {\$context_operator = "Multiplication";}
+						// | T_Div {\$context_operator = "Division";}
 					)
 					fator
+					{ContextController::shortContext(\$context_operator);}
 				)*
 			;
 fator		:
 				(
-					T_Var {ContextController::shortContext("Var");}
-					| T_Const {ContextController::shortContext("Var");}
-					| T_Num {ContextController::startContext("String");}
-							{ContextController::setValue(\$localContext->getText());}
-							{ContextController::endContext();}
-					| (T_OP expr T_CP)
+					var_value
+					| input_int
+					| const_value
+					| numValue
+					| (
+						T_OP
+						expr
+						T_CP
+					)
 				)
+			;
+
+var_value	@init{ContextController::startContext("Var");}
+			@after{ContextController::endContext();}
+			:
+				T_Var {ContextController::setValue(\$localContext->getText());}
+			;
+
+const_value	@init{ContextController::startContext("Var");}
+			@after{ContextController::endContext();}
+			:
+				T_Const {ContextController::setValue(\$localContext->getText());}
+			;
+
+conditional	@init{ContextController::startContext("Conditional");}
+			@after{ContextController::endContext();}
+			:
+				'IF'
+				T_OP
+				condition
+				T_CP
+				T_OC
+				(cod_script)+
+				T_CC
+			;
+
+condition	@init{ContextController::startContext("Condition");}
+			@after{ContextController::endContext();}
+			:
+				(
+					expr
+					(
+						T_Eq {\$logicalOperator = 'Equal';}
+						| T_NEq {\$logicalOperator = 'NotEqual';}
+						| T_BoEq {\$logicalOperator = 'BigOrEqual';}
+						| T_LoEq {\$logicalOperator = 'LowOrEqual';}
+						| T_Big {\$logicalOperator = 'Big';}
+						| T_Low {\$logicalOperator = 'Low';}
+					)
+					expr
+					{ContextController::setLogicalOperator(\$logicalOperator);}
+				)
+				| (
+					T_OP
+						condition
+					T_CP
+				)
+
+			;
+
+laco		@init{ContextController::startContext("Laco");}
+			@after{ContextController::endContext();}
+			:
+				'WHILE'
+				T_OP
+				condition
+				T_CP
+				T_OC
+				(cod_script)+
+				T_CC
+			;
+logic_stat	:
+				( T_And | T_Or )
 			;
 /* expressions end */
 
+T_Eq	:'==';
+T_NEq	:'!=';
+T_BoEq	:'=>';
+T_LoEq	:'=<';
+T_Big	:'>';
+T_Low	:'<';
+
+T_And	: 'AND';
+T_Or	: 'OR';
+
+T_Let	: 'let';
 
 T_Var	: ('a'..'z' | 'A'..'Z') ('a'..'z' | 'A'..'Z' | '0'..'9')*
 		;
@@ -143,6 +225,12 @@ T_OP	: '('
 T_CP	: ')'
 		;
 
+T_OC	: '{'
+		;
+
+T_CC	: '}'
+		;
+
 T_Soma	: '+'
 		;
 
@@ -161,8 +249,8 @@ T_Num	: ('0'..'9')+
 T_Const	: ('A'..'Z')+
 		;
 
-T_Text	: ('a'..'z' | 'A'..'Z' | '0'..'9' | ' ')+
+T_Text	: '"' ~('"')* '"'
 		;
 
-T_Blank	: (' ' | '\n' | '\r' | '\t') -> skip
+T_Blank	: (' '|'\t'|'\r'|'\n')+ -> skip
 		;

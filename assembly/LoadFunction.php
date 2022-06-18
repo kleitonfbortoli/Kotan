@@ -26,7 +26,15 @@ class LoadFunction {
     }
 
     public static function getMoveFunction(Variable $var) : string {
-        $moveF = $var->isRegister() ? "move" : "la";
+        if($var->isRegister()) {
+            $moveF = "move";
+        } else if ($var->getType() === EnumVariableType::Num) {
+            $moveF = "lw";
+        } else if ($var->getType() === EnumVariableType::String) {
+            $moveF = "la";
+        } else {
+            throw new Exception("Tipo de variável não aceita", -1);
+        }
 
         return $moveF;
     }

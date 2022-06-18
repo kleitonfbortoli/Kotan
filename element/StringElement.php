@@ -6,10 +6,10 @@ use Controller\CompilerMemoryVarsController;
 use Controller\VarsController;
 use Assembly\Variable;
 use Interface\InterfaceElement;
-use Trait\Element\Values;
+use Trait\Element\Value;
 
 class StringElement extends Element implements InterfaceElement {
-    use Values;
+    use Value;
 
     public function compile(): void
     {

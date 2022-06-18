@@ -2,6 +2,7 @@
 
 namespace Controller;
 
+use Assembly\Register;
 use Assembly\Variable;
 use Exception;
 
@@ -22,7 +23,7 @@ class VarsController {
             throw new Exception("Variável já declarada", 1);
         }
 
-        if($var->getType() === 'tmp') {
+        if($var instanceof Register) {
             throw new Exception("Variavel de memória n pode ser salva na ran diretamente", 1);
         }
 
@@ -32,7 +33,7 @@ class VarsController {
     public static function getVar(string $varName) : Variable {
 
         if(empty(self::$registredVars[$varName])) {
-            throw new Exception("Variável não declarada", 1);
+            throw new Exception("Variável {$varName} não declarada", 1);
         }
 
         return self::$registredVars[$varName];
